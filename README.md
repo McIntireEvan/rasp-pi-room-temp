@@ -8,7 +8,7 @@ This README outlines what I did to set it all up, but is by no means a definitiv
 
 ## Parts Needed
 
-- Raspberry Pi (Any version should work, this runs fine on a Raspberry Pi 1 Revision 2) running latest Raspbian
+- Raspberry Pi (Any version with 512mb or more of RAM should work, this runs fine on a Raspberry Pi 1 Revision 2) running latest Raspbian
 - USB Wifi Adapter if the Pi doesn't support WiFi
 - DHT22 Sensor
 - 10k Ohm resistor (should come with the sensor)
