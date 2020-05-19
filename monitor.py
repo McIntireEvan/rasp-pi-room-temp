@@ -8,41 +8,46 @@ dht_device = adafruit_dht.DHT22(D4)
 
 client = InfluxDBClient('localhost', 8086, 'grafana', 'grafanapw', 'home')
 
+
+def make_measurement(name: str, tags, value):
+    time = datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+    print("Measured {0} as {1} at {2}".format(name, value, time))
+    return {
+        "measurement": name,
+        "tags": tags,
+        "time": time,
+        "fields": {
+            "value": value
+        }
+    }
+
+
+tags = {
+    "room": "bedroom"
+}
+
 while True:
     sleep(2.5)
-    print("starting read")
+    print("Starting read")
+    measurements = []
     try:
         t = dht_device.temperature
-        h = dht_device.humidity
-
-        if t is not None and h is not None:
+        if t is not None:
             f = (9.0 / 5.0) * t + 32
 
-            print("Temp={0:0.1f}*F Hum={1:0.1f}%".format(f, h))
-
-            time = datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
-            print(time)
-
-            vals = [{
-                "measurement": "temperature",
-                "tags": {
-                    "room": "bedroom"
-                    },
-                "time": time,
-                "fields":{
-                        "value": f
-                    }
-                }, {
-                "measurement": "humidity",
-                "tags": {
-                    "room": "bedroom"
-                    },
-                "time": time,
-                "fields":{
-                        "value": h
-                    }
-                }]
-            client.write_points(vals)
+            m_t = make_measurement("temperature", tags, f)
+            measurements.append(m_t)
 
     except RuntimeError as error:
         print(error.args[0])
+    try:
+        h = dht_device.humidity
+        if h is not None:
+            m_h = make_measurement("humidity", tags, h)
+            measurements.append(m_h)
+
+    except RuntimeError as error:
+        print(error.args[0])
+
+    if len(measurements) > 0:
+        client.write_points(measurements)
