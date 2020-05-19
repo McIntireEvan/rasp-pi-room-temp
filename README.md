@@ -1,4 +1,4 @@
-# rasp-pi-room-temp
+# rasp-pi-room-monitor
 
 Room Temperature and Humidity Monitoring dashboard in Grafana.
 
