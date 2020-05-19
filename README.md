@@ -1,5 +1,9 @@
 # rasp-pi-room-temp
 
+Room Temperature and Humidity Monitoring dashboard in Grafana.
+
+This README outlines what I did to set it all up, but is by no means a definitive guide.
+
 ## Parts Needed
 - Raspberry Pi (Any version should work, this runs fine on a Raspberry Pi 1 Revision 2) running latest Raspbian
 - USB Wifi Adapter if the Pi doesn't support WiFi
@@ -10,7 +14,7 @@
 
 ## Setting up the sensor
 
-See wiring for https://tutorials-raspberrypi.com/raspberry-pi-measure-humidity-temperature-dht11-dht22/
+See wiring in https://tutorials-raspberrypi.com/raspberry-pi-measure-humidity-temperature-dht11-dht22/
 
 ## Installing Libraries
 
